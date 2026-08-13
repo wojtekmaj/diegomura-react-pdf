@@ -13,6 +13,16 @@ type Sum = {
   shrink: number;
 };
 
+type LinebreakStats = {
+  breakpointsVisited: number;
+  candidateEvaluations: number;
+  feasibleCandidates: number;
+  activeNodesCreated: number;
+  activeNodesRemoved: number;
+  maxActiveNodes: number;
+  sumNodeVisits: number;
+};
+
 function breakpoint(
   position: number,
   demerits: number,
@@ -86,7 +96,12 @@ function computeCost(
 
 // Add width, stretch and shrink values from the current
 // break point up to the next box or forced penalty.
-function computeSum(nodes: Node[], sum: Sum, breakPointIndex: number) {
+function computeSum(
+  nodes: Node[],
+  sum: Sum,
+  breakPointIndex: number,
+  stats?: LinebreakStats,
+) {
   const result = {
     width: sum.width,
     stretch: sum.stretch,
@@ -94,6 +109,8 @@ function computeSum(nodes: Node[], sum: Sum, breakPointIndex: number) {
   };
 
   for (let i = breakPointIndex; i < nodes.length; i += 1) {
+    if (stats) stats.sumNodeVisits += 1;
+
     const node = nodes[i];
 
     if (node.type === 'glue') {
@@ -139,12 +156,14 @@ function findBestBreakpoints(activeNodes) {
  * @param nodes
  * @param availableWidths
  * @param tolerance
+ * @param stats - Optional benchmark counters
  * @preserve Knuth and Plass line breaking algorithm in JavaScript
  */
 const linebreak = (
   nodes: Node[],
   availableWidths: number[],
   tolerance?: number,
+  stats?: LinebreakStats,
 ): number[] => {
   // Demerits are used as a way to penalize bad line breaks
   //  - line: applied to each line, depending on how much spaces need to stretch or shrink
@@ -166,8 +185,15 @@ const linebreak = (
     new LinkedList.Node(breakpoint(0, 0, 0, 0, undefined, null)),
   );
 
+  if (stats) {
+    stats.activeNodesCreated += 1;
+    stats.maxActiveNodes = 1;
+  }
+
   // The main loop of the algorithm
   function mainLoop(node: Node, index: number, nodes: Node[]) {
+    if (stats) stats.breakpointsVisited += 1;
+
     let active = activeNodes.first();
 
     // The inner loop iterates through all the active nodes with line < currentLine and then
@@ -187,6 +213,8 @@ const linebreak = (
 
       // Iterate through the linked list of active nodes to find new potential active nodes and deactivate current active nodes.
       while (active !== null) {
+        if (stats) stats.candidateEvaluations += 1;
+
         currentLine = active.data.line + 1;
 
         const ratio = computeCost(
@@ -208,11 +236,14 @@ const linebreak = (
           (node.type === 'penalty' && node.penalty === -linebreak.infinity)
         ) {
           activeNodes.remove(active);
+          if (stats) stats.activeNodesRemoved += 1;
         }
 
         // If the ratio is within the valid range of -1 <= ratio <= tolerance calculate the
         // total demerits and record a candidate active node.
         if (ratio >= -1 && ratio <= options.tolerance) {
+          if (stats) stats.feasibleCandidates += 1;
+
           const badness = 100 * Math.pow(Math.abs(ratio), 3);
 
           let demerits = 0;
@@ -276,16 +307,18 @@ const linebreak = (
 
         // Stop iterating through active nodes to insert new candidate active nodes in the active list
         // before moving on to the active nodes for the next line.
-        // TODO: The Knuth and Plass paper suggests a conditional for currentLine < j0. This means paragraphs
-        // with identical line lengths will not be sorted by line number. Find out if that is a desirable outcome.
-        // For now I left this out, as it only adds minimal overhead to the algorithm and keeping the active node
-        // list sorted has a higher priority.
-        if (active !== null && active.data.line >= currentLine) {
+        // Line numbers are equivalent once the last distinct line length is reached.
+        // Grouping them allows dominated candidates to be discarded together.
+        if (
+          active !== null &&
+          active.data.line >= currentLine &&
+          currentLine < lineLengths.length
+        ) {
           break;
         }
       }
 
-      const tmpSum = computeSum(nodes, sum, index);
+      const tmpSum = computeSum(nodes, sum, index, stats);
 
       for (
         let fitnessClass = 0;
@@ -310,6 +343,14 @@ const linebreak = (
           activeNodes.insertBefore(active, newNode);
         } else {
           activeNodes.push(newNode);
+        }
+
+        if (stats) {
+          stats.activeNodesCreated += 1;
+          stats.maxActiveNodes = Math.max(
+            stats.maxActiveNodes,
+            activeNodes.size(),
+          );
         }
       }
     }

@@ -1,0 +1,211 @@
+{
+  "environment": {
+    "date": "2026-08-13",
+    "sourceCommit": "dee75f98e51198766a37addc9d0bdaa4dd5dbb3b",
+    "os": "macOS 26.6.1 (25G76)",
+    "architecture": "arm64",
+    "node": "24.17.0",
+    "yarn": "1.22.19"
+  },
+  "protocol": {
+    "lineWidth": 468,
+    "warmups": 2,
+    "measuredRuns": 7,
+    "processIsolation": "one child process per size",
+    "sizesInWords": [500, 1000, 2000, 4000, 8000]
+  },
+  "baseline": [
+    {
+      "words": 500,
+      "characters": 3430,
+      "nodes": 1721,
+      "lines": 38,
+      "wallMs": { "median": 5.428375, "min": 2.733667, "max": 5.652792 },
+      "cpuMs": { "median": 10.984, "min": 5.176, "max": 16.607 },
+      "peakRssMb": 113.96875,
+      "counters": {
+        "breakpointsVisited": 861,
+        "candidateEvaluations": 138785,
+        "feasibleCandidates": 22160,
+        "activeNodesCreated": 5829,
+        "activeNodesRemoved": 5822,
+        "maxActiveNodes": 373,
+        "sumNodeVisits": 6499
+      },
+      "outputHash": "c57f89b2caa4031f1be63235b194807e07738fb6e0cc68a161202499a444df44"
+    },
+    {
+      "words": 1000,
+      "characters": 6865,
+      "nodes": 3443,
+      "lines": 74,
+      "wallMs": { "median": 15.621875, "min": 15.108333, "max": 16.745125 },
+      "cpuMs": { "median": 28.5, "min": 27.722, "max": 29.967 },
+      "peakRssMb": 122.703125,
+      "counters": {
+        "breakpointsVisited": 1722,
+        "candidateEvaluations": 564907,
+        "feasibleCandidates": 90724,
+        "activeNodesCreated": 23395,
+        "activeNodesRemoved": 23372,
+        "maxActiveNodes": 709,
+        "sumNodeVisits": 22226
+      },
+      "outputHash": "53f82c639adc1c9ba3a3e2e32553e202f749e4ab40d16ac876ba82a1057707ae"
+    },
+    {
+      "words": 2000,
+      "characters": 13724,
+      "nodes": 6881,
+      "lines": 148,
+      "wallMs": { "median": 50.724917, "min": 49.092834, "max": 52.473334 },
+      "cpuMs": { "median": 69.613, "min": 65.989, "max": 71.101 },
+      "peakRssMb": 222.265625,
+      "counters": {
+        "breakpointsVisited": 3441,
+        "candidateEvaluations": 2276933,
+        "feasibleCandidates": 366726,
+        "activeNodesCreated": 93527,
+        "activeNodesRemoved": 93504,
+        "maxActiveNodes": 1557,
+        "sumNodeVisits": 81197
+      },
+      "outputHash": "7bdfe3b3dc87417481bbdf3174b5d30a19e316b4df713c09da06e8f3870fb33c"
+    },
+    {
+      "words": 4000,
+      "characters": 27439,
+      "nodes": 13755,
+      "lines": 295,
+      "wallMs": { "median": 183.615, "min": 181.837917, "max": 201.172375 },
+      "cpuMs": { "median": 225.189, "min": 224.047, "max": 262.215 },
+      "peakRssMb": 334.21875,
+      "counters": {
+        "breakpointsVisited": 6878,
+        "candidateEvaluations": 9122662,
+        "feasibleCandidates": 1472165,
+        "activeNodesCreated": 373323,
+        "activeNodesRemoved": 373279,
+        "maxActiveNodes": 3088,
+        "sumNodeVisits": 309242
+      },
+      "outputHash": "f05431613d05b1cb1dc07b24b966a96f5d475a57c4d9e78e8c72b315f983e731"
+    },
+    {
+      "words": 8000,
+      "characters": 54876,
+      "nodes": 27515,
+      "lines": 589,
+      "wallMs": { "median": 749.559666, "min": 729.596542, "max": 762.869042 },
+      "cpuMs": { "median": 1084.195, "min": 931.1, "max": 1127.886 },
+      "peakRssMb": 693.234375,
+      "counters": {
+        "breakpointsVisited": 13758,
+        "candidateEvaluations": 36593944,
+        "feasibleCandidates": 5908448,
+        "activeNodesCreated": 1494521,
+        "activeNodesRemoved": 1494435,
+        "maxActiveNodes": 6209,
+        "sumNodeVisits": 1206276
+      },
+      "outputHash": "57ac1d8cf473aca530f70aebb144906e9cc143ea52316afd809c5c9617f35839"
+    }
+  ],
+  "optimized": [
+    {
+      "words": 500,
+      "characters": 3430,
+      "nodes": 1721,
+      "lines": 38,
+      "wallMs": { "median": 1.538084, "min": 1.139709, "max": 5.650542 },
+      "cpuMs": { "median": 5.077, "min": 3.944, "max": 15.52 },
+      "peakRssMb": 110.59375,
+      "counters": {
+        "breakpointsVisited": 861,
+        "candidateEvaluations": 47783,
+        "feasibleCandidates": 7681,
+        "activeNodesCreated": 1981,
+        "activeNodesRemoved": 1980,
+        "maxActiveNodes": 74,
+        "sumNodeVisits": 1721
+      },
+      "outputHash": "c57f89b2caa4031f1be63235b194807e07738fb6e0cc68a161202499a444df44"
+    },
+    {
+      "words": 1000,
+      "characters": 6865,
+      "nodes": 3443,
+      "lines": 74,
+      "wallMs": { "median": 4.167833, "min": 1.95175, "max": 5.226125 },
+      "cpuMs": { "median": 9.199, "min": 4.661, "max": 15.725 },
+      "peakRssMb": 115.171875,
+      "counters": {
+        "breakpointsVisited": 1722,
+        "candidateEvaluations": 101465,
+        "feasibleCandidates": 16349,
+        "activeNodesCreated": 4171,
+        "activeNodesRemoved": 4169,
+        "maxActiveNodes": 74,
+        "sumNodeVisits": 3443
+      },
+      "outputHash": "53f82c639adc1c9ba3a3e2e32553e202f749e4ab40d16ac876ba82a1057707ae"
+    },
+    {
+      "words": 2000,
+      "characters": 13724,
+      "nodes": 6881,
+      "lines": 148,
+      "wallMs": { "median": 4.444042, "min": 3.910333, "max": 8.17825 },
+      "cpuMs": { "median": 7.443, "min": 6.621, "max": 17.953 },
+      "peakRssMb": 117.78125,
+      "counters": {
+        "breakpointsVisited": 3441,
+        "candidateEvaluations": 208746,
+        "feasibleCandidates": 33674,
+        "activeNodesCreated": 8543,
+        "activeNodesRemoved": 8542,
+        "maxActiveNodes": 74,
+        "sumNodeVisits": 6881
+      },
+      "outputHash": "7bdfe3b3dc87417481bbdf3174b5d30a19e316b4df713c09da06e8f3870fb33c"
+    },
+    {
+      "words": 4000,
+      "characters": 27439,
+      "nodes": 13755,
+      "lines": 295,
+      "wallMs": { "median": 12.75675, "min": 7.752833, "max": 14.053834 },
+      "cpuMs": { "median": 26.378, "min": 11.829, "max": 29.601 },
+      "peakRssMb": 123.515625,
+      "counters": {
+        "breakpointsVisited": 6878,
+        "candidateEvaluations": 422778,
+        "feasibleCandidates": 68268,
+        "activeNodesCreated": 17268,
+        "activeNodesRemoved": 17267,
+        "maxActiveNodes": 74,
+        "sumNodeVisits": 13755
+      },
+      "outputHash": "f05431613d05b1cb1dc07b24b966a96f5d475a57c4d9e78e8c72b315f983e731"
+    },
+    {
+      "words": 8000,
+      "characters": 54876,
+      "nodes": 27515,
+      "lines": 589,
+      "wallMs": { "median": 19.229125, "min": 18.75975, "max": 20.037083 },
+      "cpuMs": { "median": 34.173, "min": 32.858, "max": 35.555 },
+      "peakRssMb": 141.28125,
+      "counters": {
+        "breakpointsVisited": 13758,
+        "candidateEvaluations": 852024,
+        "feasibleCandidates": 137624,
+        "activeNodesCreated": 34765,
+        "activeNodesRemoved": 34764,
+        "maxActiveNodes": 74,
+        "sumNodeVisits": 27515
+      },
+      "outputHash": "57ac1d8cf473aca530f70aebb144906e9cc143ea52316afd809c5c9617f35839"
+    }
+  ]
+}
